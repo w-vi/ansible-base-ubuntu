@@ -1,0 +1,41 @@
+# ansible-base-ubuntu - ansible playbook for base Ubuntu 18.04 server setup
+# Copyright (C) 2018 Vilibald Wanča
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+# USAGE:
+# Edit the following
+
+# *username*:  user name for the non root user
+
+# *password*: a sudo password for the user and it is is hashed, see
+# http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+# for more details.
+
+# *public_key*: a path to local public key which is added to the user for
+# passwordless ssh
+
+---
+- hosts: production
+  user: root
+  vars:
+    username: <USERNAME>
+    password: "$6$salt$mHSsYLQw.px7GyyquHCAzkYXL9tJsVv1iyt.66CjC8m6QWGcPLBl6c3qdMTYzlBwld7.YPELpYLqrV9osfCHm."
+    public_key: ~/.ssh/id_rsa.pub
+  roles:
+   - common
+   - ufw
+   - user
+   - ssh
