@@ -8,6 +8,8 @@ This repository contains a playbook for provisioning a base ubuntu machine.
 * SSH hardening (no password login, no root login)
 * Firewall setup (HTTP/S and SSH allowed)
 * Fail2Ban
+* Unattened-upgrades
+* Mailutils
 
 
 ## Usage

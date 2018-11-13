@@ -1,0 +1,3 @@
+{% if unattended_mail %}
+Unattended-Upgrade::Mail "{{unattended_mail}}";
+{% endif %}

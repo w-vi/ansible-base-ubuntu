@@ -27,6 +27,11 @@
 # *public_key*: a path to local public key which is added to the user for
 # passwordless ssh
 
+# *unattended_mail:* email address to receive upgrade/error info from
+# unattended upgrades which are run daily
+
+# *mail_hostname:* FQDN for postfix to not being ignored by receving side
+
 ---
 - hosts: production
   user: root
@@ -34,8 +39,17 @@
     username: <USERNAME>
     password: "$6$salt$mHSsYLQw.px7GyyquHCAzkYXL9tJsVv1iyt.66CjC8m6QWGcPLBl6c3qdMTYzlBwld7.YPELpYLqrV9osfCHm."
     public_key: ~/.ssh/id_rsa.pub
+    unattended_mail: <EMAIL_ADDRESS>
+    mail_hostname: <FQDN>
   roles:
    - common
    - ufw
    - user
    - ssh
+   - upgrades
+   - mail
+
+  tasks:
+    - name: Reboot
+      reboot:
+        reboot_timeout: 3600

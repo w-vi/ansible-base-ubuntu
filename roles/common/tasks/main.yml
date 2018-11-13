@@ -4,6 +4,6 @@
 
 - name: Install packages
   apt:
-    name: ['fail2ban', 'ufw']
+    name: ['fail2ban', 'ufw', 'unattended-upgrades', 'mailutils']
     state: present
     update_cache: yes

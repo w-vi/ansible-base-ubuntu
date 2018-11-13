@@ -1,0 +1,8 @@
+---
+- name: Create unattended-upgrades configuration
+  template:
+    src: config.template
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    owner: root
+    group: root
+    mode: 0644
