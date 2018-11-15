@@ -30,6 +30,9 @@
 # *unattended_mail:* email address to receive upgrade/error info from
 # unattended upgrades which are run daily
 
+# *unattended_reboot:* shall the machine auto reboot if needed after the
+# *upgrade. If not specified at all it is set to false.
+
 # *mail_hostname:* FQDN for postfix to not being ignored by receving side
 
 ---
@@ -40,6 +43,7 @@
     password: "$6$salt$mHSsYLQw.px7GyyquHCAzkYXL9tJsVv1iyt.66CjC8m6QWGcPLBl6c3qdMTYzlBwld7.YPELpYLqrV9osfCHm."
     public_key: ~/.ssh/id_rsa.pub
     unattended_mail: <EMAIL_ADDRESS>
+    unattended_reboot: <true|false>
     mail_hostname: <FQDN>
   roles:
    - common

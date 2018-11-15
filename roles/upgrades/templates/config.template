@@ -1,3 +1,8 @@
 {% if unattended_mail %}
 Unattended-Upgrade::Mail "{{unattended_mail}}";
 {% endif %}
+{% if unattended_reboot %}
+Unattended-pgrade::Automatic-Reboot "{{unattended_reboot}}";
+{% else %}
+Unattended-Upgrade::Automatic-Reboot "false";
+{% endif %}
