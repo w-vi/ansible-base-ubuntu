@@ -1,5 +1,5 @@
 # ansible-base-ubuntu - ansible playbook for base Ubuntu 18.04 server setup
-# Copyright (C) 2018 Vilibald Wanča
+# Copyright (C) 2018, 2019 Vilibald Wanča
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
 
 # USAGE:
-# Edit the following
+# Edit the following variables in vars.
 
 # *username*:  user name for the non root user
 
@@ -31,9 +31,15 @@
 # unattended upgrades which are run daily
 
 # *unattended_reboot:* shall the machine auto reboot if needed after the
-# *upgrade. If not specified at all it is set to false.
+# upgrade. If not specified at all it is set to false.
 
 # *mail_hostname:* FQDN for postfix to not being ignored by receving side
+# default is the ansible inventory_hostname variable
+
+# *letsencrypt_hostname:* domain for the cerificate, default is the ansible
+# inventory_hostname variable
+
+# *cert:* set true if you want letsencrypt certificate
 
 ---
 - hosts: production
@@ -44,7 +50,9 @@
     public_key: ~/.ssh/id_rsa.pub
     unattended_mail: <EMAIL_ADDRESS>
     unattended_reboot: <true|false>
-    mail_hostname: <FQDN>
+    mail_hostname: {{inventory_hostname}}
+    letsencrypt_hostname: {{inventory_hostname}}
+    cert: false
   roles:
    - common
    - ufw
@@ -52,8 +60,5 @@
    - ssh
    - upgrades
    - mail
-
-  tasks:
-    - name: Reboot
-      reboot:
-        reboot_timeout: 3600
+   - role: letsencrypt
+     when: cert == true
