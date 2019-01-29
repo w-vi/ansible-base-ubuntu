@@ -2,9 +2,9 @@
 - name: Set my hostname
   lineinfile: dest=/etc/postfix/main.cf regexp='^myhostname' line='myhostname = {{ mail_hostname }}'
   notify: restart postfix
-  sudo: yes
-  
+  become: yes
+
 - name: Listen only on local interface
   lineinfile: dest=/etc/postfix/main.cf regexp='^inet_interfaces' line='inet_interfaces = 127.0.0.1'
   notify: restart postfix
-  sudo: yes
+  become: yes
